@@ -1,0 +1,6 @@
+{
+  "name": "TrustLens AI",
+  "description": "Forensic product analysis. Scan ingredients or nutritional facts to instantly confirm authenticity and evaluate health compatibilities.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
