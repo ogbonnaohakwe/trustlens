@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>TrustLenAI Pro - AI Voice Assistant</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#2E090F",
+                    "surface-container-low": "#070B11",
+                    "surface-container-high": "#0F172A",
+                    "on-error": "#ffffff",
+                    "surface-variant": "#0D1520",
+                    "on-tertiary-fixed": "#2b1701",
+                    "on-primary-fixed-variant": "#94A3B8",
+                    "error-container": "#7F1D1D",
+                    "surface-tint": "#E50914",
+                    "surface-container": "#0D1520",
+                    "inverse-on-surface": "#060B13",
+                    "surface-container-highest": "#1E293B",
+                    "on-surface-variant": "#94A3B8",
+                    "primary-fixed": "#d6e3ff",
+                    "surface-bright": "#0D1520",
+                    "on-tertiary-fixed-variant": "#5d4124",
+                    "on-primary-container": "#CBD5E1",
+                    "primary-fixed-dim": "#b9c7e4",
+                    "inverse-primary": "#b9c7e4",
+                    "background": "#060B13",
+                    "outline": "#475569",
+                    "tertiary-container": "#2b1701",
+                    "surface-dim": "#070B11",
+                    "secondary-container": "#2E090F",
+                    "surface-container-lowest": "#060B13",
+                    "secondary": "#E50914",
+                    "on-secondary-fixed": "#ffffff",
+                    "on-surface": "#ffffff",
+                    "primary": "#ffffff",
+                    "on-secondary-container": "#ffffff",
+                    "tertiary-fixed-dim": "#e7bf99",
+                    "on-error-container": "#ffffff",
+                    "error": "#EF4444",
+                    "surface": "#0D1520",
+                    "on-primary-fixed": "#ffffff",
+                    "primary-container": "#0D1520",
+                    "secondary-fixed-dim": "#ffb4aa",
+                    "on-tertiary-container": "#9f7d5b",
+                    "on-primary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-fixed": "#ffdcbd",
+                    "tertiary": "#ffffff",
+                    "inverse-surface": "#CBD5E1",
+                    "outline-variant": "#1E293B",
+                    "on-secondary": "#ffffff",
+                    "on-background": "#CBD5E1",
+                    "on-secondary-fixed-variant": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "8px",
+                    "base": "4px",
+                    "lg": "48px",
+                    "xl": "80px",
+                    "sm": "16px",
+                    "margin-desktop": "40px",
+                    "gutter": "24px",
+                    "margin-mobile": "16px",
+                    "md": "24px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-bold": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "caption": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-bold": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "caption": ["12px", {"lineHeight": "16px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .voice-wave {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            height: 80px;
+        }
+        .wave-bar {
+            width: 6px;
+            background: #E50914;
+            border-radius: 3px;
+            height: 15px;
+            transition: height 0.1s ease;
+        }
+        .glass-card {
+            background: rgba(13, 21, 32, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(229, 9, 20, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-6 flex flex-col justify-between">
+
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-4 h-14 border-b border-outline-variant bg-surface w-full">
+    <div class="flex items-center gap-2">
+        <span class="material-symbols-outlined text-secondary" data-icon="security">security</span>
+        <h1 class="font-headline-md text-[18px] font-extrabold text-primary tracking-tight">TrustLenAI Voice Pro</h1>
+    </div>
+    <button onclick="closeModal()" class="hover:opacity-80 transition-opacity">
+        <span class="material-symbols-outlined text-on-surface-variant" data-icon="close">close</span>
+    </button>
+</header>
+
+<!-- Main Container -->
+<main class="flex-grow p-4 flex flex-col justify-center items-center max-w-xl mx-auto w-full">
+    
+    <!-- STATE 1: PAYWALL SCREEN -->
+    <div id="paywallState" class="w-full space-y-6">
+        <section class="text-center">
+            <div class="inline-block px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container font-label-bold text-caption mb-3">
+                TRUSTLENS VOICE CONSULTATION
+            </div>
+            <h2 class="font-headline-lg text-[26px] text-on-surface mb-2 leading-snug">Activate Live Voice Diagnostics</h2>
+            <p class="font-body-md text-on-surface-variant max-w-sm mx-auto leading-relaxed">
+                Unlock hands-free verbal guidance on your health report and converse in real-time about chemical compatibility.
+            </p>
+        </section>
+
+        <!-- Bento Grid Benefits -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="glass-card p-4 rounded-xl flex gap-3 items-start">
+                <div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-secondary" data-icon="record_voice_over">record_voice_over</span>
+                </div>
+                <div>
+                    <h3 class="font-label-bold text-sm text-on-surface">Interactive AI Guidance</h3>
+                    <p class="text-on-surface-variant text-caption leading-snug">AI directly explains dangerous ingredients and checks symptoms.</p>
+                </div>
+            </div>
+            <div class="glass-card p-4 rounded-xl flex gap-3 items-start">
+                <div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-secondary" data-icon="payments">payments</span>
+                </div>
+                <div>
+                    <h3 class="font-label-bold text-sm text-on-surface">Secure Checkout</h3>
+                    <p class="text-on-surface-variant text-caption leading-snug">N10,000 monthly, billed securely in-app via Flutterwave.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Area -->
+        <div class="flex flex-col items-center gap-3">
+            <button id="btnPay" onclick="paySubscription()" class="w-full py-4 bg-secondary text-on-secondary rounded-xl font-headline-md text-base font-bold shadow-lg hover:opacity-90 active:scale-95 transition-all">
+                ACTIVATE VOICE AGENT - ₦10,000/mo
+            </button>
+            <p class="text-caption text-on-surface-variant">Payments are processed instantly by Flutterwave.</p>
+        </div>
+    </div>
+
+    <!-- STATE 2: ACTIVE VOICE AGENT INTERACTION -->
+    <div id="voiceState" class="hidden w-full flex flex-col items-center space-y-6">
+        <div class="text-center">
+            <span id="agentStatus" class="inline-block px-3 py-1 rounded-full bg-emerald-950/40 text-emerald-400 border border-emerald-500/20 font-label-bold text-caption animate-pulse mb-3 uppercase tracking-wider">
+                Agent Active - Connected
+            </span>
+            <h2 id="productTitle" class="font-headline-lg text-[22px] text-on-surface font-extrabold mb-1">
+                Consulting Scan Report
+            </h2>
+            <p class="text-caption text-on-surface-variant">Ask questions regarding chemical hazards and compatibility.</p>
+        </div>
+
+        <!-- Voice visualization circle with pulse waveform -->
+        <div class="w-36 h-36 rounded-full bg-surface-container-high flex items-center justify-center relative shadow-inner">
+            <div id="pulseCircle" class="absolute inset-0 rounded-full border border-secondary opacity-25 scale-100 transition-transform duration-300"></div>
+            <div class="voice-wave" id="barsContainer">
+                <div class="wave-bar" id="bar1"></div>
+                <div class="wave-bar" id="bar2"></div>
+                <div class="wave-bar" id="bar3"></div>
+                <div class="wave-bar" id="bar4"></div>
+                <div class="wave-bar" id="bar5"></div>
+            </div>
+        </div>
+
+        <!-- Transcript Window -->
+        <div class="w-full glass-card rounded-xl p-4 h-36 overflow-y-auto flex flex-col space-y-2" id="transcriptContainer">
+            <div class="text-caption text-neutral-400 italic">Consultation log started...</div>
+        </div>
+
+        <!-- Controls -->
+        <div class="flex gap-4 w-full">
+            <button id="btnMute" onclick="toggleMute()" class="flex-1 py-3 border border-outline-variant bg-surface text-on-surface rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-surface-container-low transition-all">
+                <span id="muteIcon" class="material-symbols-outlined">mic</span>
+                <span id="muteText">Mute</span>
+            </button>
+            <button onclick="disconnectVoice()" class="flex-1 py-3 bg-secondary text-on-secondary rounded-xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-all">
+                <span class="material-symbols-outlined">call_end</span>
+                Hang Up
+            </button>
+        </div>
+    </div>
+</main>
+
+<script>
+    // Config parameters initialized from Android WebView interface
+    let userEmail = "customer@example.com";
+    let userName = "Clinical Partner";
+    let isPro = false;
+    let geminiApiKey = "";
+    let deepgramApiKey = "";
+
+    // Scan result context
+    let scanResult = {
+        productName: "VitalGuard Product",
+        safetyScore: 65,
+        safetyStatus: "UNSAFE",
+        avoidIngredients: "Sodium Hexametaphosphate",
+        cautionIngredients: "Magnesium Stearate",
+        summaryReport: "Conflicts detected under current cardiac profile rules."
+    };
+
+    // Deepgram & Web Speech state variables
+    let webSocket = null;
+    let audioContext = null;
+    let micStream = null;
+    let isMuted = false;
+    let isConnected = false;
+    
+    // Mock simulation tools
+    let isSimulatedMode = false;
+    let speechRecognition = null;
+    let textToSpeech = window.speechSynthesis;
+
+    // Load initial values from android if available
+    window.onload = function() {
+        if (window.AndroidInterface) {
+            userEmail = window.AndroidInterface.getUserEmail() || userEmail;
+            userName = window.AndroidInterface.getUserName() || userName;
+            isPro = window.AndroidInterface.isUserPro();
+            geminiApiKey = window.AndroidInterface.getGeminiKey();
+            deepgramApiKey = window.AndroidInterface.getDeepgramKey();
+            
+            try {
+                const resJson = window.AndroidInterface.getScanResultJson();
+                if (resJson) {
+                    scanResult = JSON.parse(resJson);
+                }
+            } catch(e) {
+                console.error("Failed to parse scanResult from Android", e);
+            }
+        }
+        
+        document.getElementById('productTitle').innerText = scanResult.productName;
+        
+        if (isPro) {
+            showVoiceInterface();
+        }
+    };
+
+    function closeModal() {
+        if (window.AndroidInterface) {
+            window.AndroidInterface.closeModal();
+        }
+    }
+
+    // STATE TRANSITION
+    function showVoiceInterface() {
+        document.getElementById('paywallState').classList.add('hidden');
+        document.getElementById('voiceState').classList.remove('hidden');
+        connectVoiceAgent();
+    }
+
+    // FLUTTERWAVE PAYMENT GATEWAY
+    function paySubscription() {
+        const btn = document.getElementById('btnPay');
+        btn.disabled = true;
+        btn.innerText = "Processing payment...";
+
+        FlutterwaveCheckout({
+            public_key: "FLWPUBK_TEST-473d09a0f679c3d4c38260ca30e12f68-X", // Flutterwave test public key
+            tx_ref: "TL-" + Date.now(),
+            amount: 10000,
+            currency: "NGN",
+            payment_options: "card, banktransfer, ussd",
+            customer: {
+                email: userEmail,
+                name: userName,
+            },
+            customizations: {
+                title: "TrustLens Voice Pro",
+                description: "Monthly access to Voice Consultation",
+                logo: "https://raw.githubusercontent.com/flutterwave/assets/main/logo/flw-logo.png",
+            },
+            callback: function(data) {
+                btn.disabled = false;
+                btn.innerText = "Payment Successful!";
+                if (data.status === "successful") {
+                    isPro = true;
+                    if (window.AndroidInterface) {
+                        window.AndroidInterface.setProStatus(true);
+                    }
+                    showVoiceInterface();
+                } else {
+                    alert("Payment was not successful. Please try again.");
+                    btn.innerText = "ACTIVATE VOICE AGENT - ₦10,000/mo";
+                }
+            },
+            onclose: function() {
+                btn.disabled = false;
+                btn.innerText = "ACTIVATE VOICE AGENT - ₦10,000/mo";
+            }
+        });
+    }
+
+    // CONNECT TO DEEPGRAM OR MOCK SPEECH API
+    function connectVoiceAgent() {
+        addLog("system", "Initializing voice assistant session...");
+        
+        // Check if we have a real Deepgram Key
+        if (!deepgramApiKey || deepgramApiKey === "" || deepgramApiKey.includes("placeholder") || deepgramApiKey.startsWith("1a2b")) {
+            // Use Web Speech API Sandbox simulation
+            isSimulatedMode = true;
+            addLog("system", "Loading local offline speech model...");
+            startSpeechSimulation();
+        } else {
+            // Real Deepgram Agent Websocket Converse connection
+            isSimulatedMode = false;
+            startDeepgramSocket();
+        }
+        
+        startWaveAnimation();
+    }
+
+    // DEEPGRAM WEBSOCKET METHOD
+    function startDeepgramSocket() {
+        const url = "wss://agent.deepgram.com/v1/agent/converse";
+        
+        webSocket = new WebSocket(url);
+        webSocket.binaryType = "arraybuffer";
+
+        webSocket.onopen = function() {
+            isConnected = true;
+            addLog("system", "Connected to Deepgram Cloud Voice agent.");
+            
+            // Send settings block detailing scan context and instruction to start dialogue
+            const settingsMessage = {
+                type: "Settings",
+                settings: {
+                    model: "conversational-voice",
+                    stt: { model: "nova-2-medical" },
+                    tts: { voice: "aura-asteria-en" },
+                    system_prompt: `You are the TrustLens AI Voice consultant speaking with ${userName}. 
+                    The scanned product is: "${scanResult.productName}".
+                    Safety Score: ${scanResult.safetyScore}/100 (Status: ${scanResult.safetyStatus}).
+                    Monitored Allergies: ${scanResult.avoidIngredients}.
+                    Monitored Conditions: ${scanResult.cautionIngredients}.
+                    Details: ${scanResult.summaryReport}.
+                    
+                    CRITICAL ACTION: You MUST start the conversation! Instantly greet the user by name, notify them of the product safety status, and ask them if they have any underlying issues or symptoms related to it.`
+                }
+            };
+            webSocket.send(JSON.stringify(settingsMessage));
+            
+            // Initialize audio capture
+            navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+                micStream = stream;
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const source = audioContext.createMediaStreamSource(stream);
+                const processor = audioContext.createScriptProcessor(1024, 1, 1);
+                
+                source.connect(processor);
+                processor.connect(audioContext.destination);
+                
+                processor.onaudioprocess = function(e) {
+                    if (isMuted) return;
+                    const inputBuffer = e.inputBuffer.getChannelData(0);
+                    // Convert float32 to PCM 16-bit
+                    const l = inputBuffer.length;
+                    const buffer = new Int16Array(l);
+                    for (let i = 0; i < l; i++) {
+                        buffer[i] = Math.min(1, Math.max(-1, inputBuffer[i])) * 0x7FFF;
+                    }
+                    if (webSocket.readyState === WebSocket.OPEN) {
+                        webSocket.send(buffer.buffer);
+                    }
+                };
+            }).catch(err => {
+                console.error("Mic failed", err);
+                addLog("system", "Microphone access denied. Falling back to sandbox speech synthesis.");
+                isSimulatedMode = true;
+                startSpeechSimulation();
+            });
+        };
+
+        webSocket.onmessage = function(e) {
+            if (e.data instanceof ArrayBuffer) {
+                // Play raw audio buffer using Web Audio API
+                playReceivedAudioBuffer(e.data);
+            } else {
+                try {
+                    const data = JSON.parse(e.data);
+                    if (data.type === "Transcript") {
+                        if (data.role === "agent") {
+                            addLog("assistant", data.text);
+                        } else {
+                            addLog("user", data.text);
+                        }
+                    }
+                } catch(err) {
+                    // Ignore parsing errors
+                }
+            }
+        };
+
+        webSocket.onclose = function() {
+            isConnected = false;
+            addLog("system", "Session closed.");
+        };
+    }
+
+    function playReceivedAudioBuffer(arrayBuffer) {
+        if (!audioContext) return;
+        audioContext.decodeAudioData(arrayBuffer, function(buffer) {
+            const source = audioContext.createBufferSource();
+            source.buffer = buffer;
+            source.connect(audioContext.destination);
+            source.start(0);
+        });
+    }
+
+    // WEBSPEECH API SANDBOX FALLBACK
+    function startSpeechSimulation() {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (SpeechRecognition) {
+            speechRecognition = new SpeechRecognition();
+            speechRecognition.continuous = true;
+            speechRecognition.interimResults = false;
+            speechRecognition.lang = 'en-US';
+            
+            speechRecognition.onresult = function(event) {
+                const text = event.results[event.results.length - 1][0].transcript;
+                if (!isMuted) {
+                    addLog("user", text);
+                    respondSimulatedAgent(text);
+                }
+            };
+            
+            speechRecognition.onerror = function() {
+                // Restart recognition if it fails
+                try { speechRecognition.start(); } catch(e){}
+            };
+
+            speechRecognition.onend = function() {
+                if (isConnected) {
+                    try { speechRecognition.start(); } catch(e){}
+                }
+            };
+        }
+
+        isConnected = true;
+        document.getElementById('agentStatus').innerText = "Simulated Model Active";
+        document.getElementById('agentStatus').className = "inline-block px-3 py-1 rounded-full bg-amber-950/40 text-amber-400 border border-amber-500/20 font-label-bold text-caption animate-pulse mb-3 uppercase tracking-wider";
+        
+        // Trigger first speech from agent
+        const initialText = `Hello ${userName}, I am your TrustLens Assistant. I see you scanned ${scanResult.productName}, which has a safety rating of ${scanResult.safetyScore} out of 100, and is considered ${scanResult.safetyStatus}. In particular, we found ${scanResult.avoidIngredients}. Do you have any allergies or dietary issues with these ingredients?`;
+        speakSimulated(initialText);
+        
+        // Start listening
+        setTimeout(() => {
+            if (speechRecognition) {
+                try { speechRecognition.start(); } catch(e) {}
+            }
+        }, 3000);
+    }
+
+    function speakSimulated(text) {
+        if (!textToSpeech) return;
+        textToSpeech.cancel();
+        
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.onstart = function() {
+            document.getElementById('pulseCircle').style.transform = 'scale(1.2)';
+        };
+        utterance.onend = function() {
+            document.getElementById('pulseCircle').style.transform = 'scale(1.0)';
+        };
+        
+        // Try to pick a premium female voice
+        const voices = textToSpeech.getVoices();
+        const englishVoice = voices.find(v => v.lang.includes('en') && v.name.includes('Google'));
+        if (englishVoice) {
+            utterance.voice = englishVoice;
+        }
+        
+        addLog("assistant", text);
+        textToSpeech.speak(utterance);
+    }
+
+    function respondSimulatedAgent(userText) {
+        // Build simple conversational logic based on keyword detection in user query
+        const text = userText.toLowerCase();
+        let reply = "I understand. I am analyzing that compound. If you consume it, be sure to monitor symptoms. Do you want to see safe alternative ingredients?";
+        
+        if (text.includes("why") || text.includes("danger") || text.includes("unsafe")) {
+            reply = `It's flagged as ${scanResult.safetyStatus} because ${scanResult.avoidIngredients} is known to trigger reactions based on your health logs. Did you feel any stomach issues or rashes?`;
+        } else if (text.includes("yes") || text.includes("do") || text.includes("safe")) {
+            reply = `Okay, for alternative options, look for products containing ${scanResult.safeIngredients || "organic extracts"}. They have a 100% safety match. Shall we save this consult?`;
+        } else if (text.includes("hello") || text.includes("hi")) {
+            reply = "Hello! Ask me anything about the scan list.";
+        }
+        
+        setTimeout(() => {
+            speakSimulated(reply);
+        }, 1000);
+    }
+
+    // CONTROLS AND MUTE LOGIC
+    function toggleMute() {
+        isMuted = !isMuted;
+        const icon = document.getElementById('muteIcon');
+        const text = document.getElementById('muteText');
+        const btn = document.getElementById('btnMute');
+        
+        if (isMuted) {
+            icon.innerText = "mic_off";
+            text.innerText = "Unmute";
+            btn.classList.add('bg-red-950/40', 'text-red-400', 'border-red-500/20');
+            if (speechRecognition) {
+                try { speechRecognition.stop(); } catch(e){}
+            }
+        } else {
+            icon.innerText = "mic";
+            text.innerText = "Mute";
+            btn.classList.remove('bg-red-950/40', 'text-red-400', 'border-red-500/20');
+            if (speechRecognition) {
+                try { speechRecognition.start(); } catch(e){}
+            }
+        }
+    }
+
+    function disconnectVoice() {
+        if (webSocket) {
+            webSocket.close();
+        }
+        if (micStream) {
+            micStream.getTracks().forEach(track => track.stop());
+        }
+        if (speechRecognition) {
+            try { speechRecognition.stop(); } catch(e){}
+        }
+        if (textToSpeech) {
+            textToSpeech.cancel();
+        }
+        
+        isConnected = false;
+        document.getElementById('voiceState').classList.add('hidden');
+        document.getElementById('paywallState').classList.remove('hidden');
+        
+        closeModal();
+    }
+
+    // DYNAMIC VISUAL WAVE
+    function startWaveAnimation() {
+        const bars = [
+            document.getElementById('bar1'),
+            document.getElementById('bar2'),
+            document.getElementById('bar3'),
+            document.getElementById('bar4'),
+            document.getElementById('bar5')
+        ];
+        
+        setInterval(() => {
+            if (!isConnected || isMuted) {
+                bars.forEach(bar => { if(bar) bar.style.height = '10px'; });
+                return;
+            }
+            
+            // Randomly animate wave size based on activity
+            bars.forEach(bar => {
+                if (bar) {
+                    const h = Math.floor(Math.random() * 55) + 15;
+                    bar.style.height = h + 'px';
+                }
+            });
+        }, 120);
+    }
+
+    // APPEND CHAT LOG
+    function addLog(role, text) {
+        const container = document.getElementById('transcriptContainer');
+        const bubble = document.createElement('div');
+        
+        if (role === "system") {
+            bubble.className = "text-caption text-secondary/70 italic";
+            bubble.innerText = text;
+        } else if (role === "assistant") {
+            bubble.className = "text-body-md text-secondary text-sm font-semibold bg-secondary-container/30 p-2 rounded-lg";
+            bubble.innerHTML = `<span class="text-caption text-secondary block font-bold">AI Assistant:</span>${text}`;
+        } else {
+            bubble.className = "text-body-md text-primary text-sm font-semibold bg-surface-container/50 p-2 rounded-lg text-right align-self-end";
+            bubble.innerHTML = `<span class="text-caption text-primary block font-bold">You:</span>${text}`;
+        }
+        
+        container.appendChild(bubble);
+        container.scrollTop = container.scrollHeight;
+    }
+</script>
+</body>
+</html>

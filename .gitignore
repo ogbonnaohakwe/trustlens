@@ -1,0 +1,42 @@
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+*.lock
+
+# Android
+*.iml
+.gradle/
+.kotlin/
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.externalNativeBuild/
+.cxx/
+local.properties
+debug.keystore
+/captures
+
+# macOS
+.DS_Store
+
+# Environment variables — NEVER commit API keys
+.env
+.env.local
+.env.production
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Generated files
+*.g.dart
+*.freezed.dart
