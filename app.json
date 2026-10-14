@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "TrustLenAI",
+    "slug": "trustlens",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/tplus.png",
+    "scheme": "trustlens",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#060B13",
+        "foregroundImage": "./assets/tplus.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "output": "static",
+      "favicon": "./assets/tplus.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "TrustLenAI needs access to your photos to audit product label ingredients."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

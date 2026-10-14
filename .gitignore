@@ -1,4 +1,15 @@
-# Flutter / Dart
+# Node / Expo
+node_modules/
+.expo/
+dist/
+web-build/
+
+# Environment variables — NEVER commit API keys or secrets
+.env
+.env.*
+!.env.example
+
+# Flutter / Dart (legacy)
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
@@ -23,20 +34,24 @@ local.properties
 debug.keystore
 /captures
 
-# macOS
+# macOS / OS
 .DS_Store
+Thumbs.db
 
-# Environment variables — NEVER commit API keys
-.env
-.env.local
-.env.production
-
-# IDE
+# IDE & Editor Settings
 .idea/
 *.iml
 *.ipr
 *.iws
+.vscode/
+.claude/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # Generated files
 *.g.dart
 *.freezed.dart
+expo-env.d.ts
